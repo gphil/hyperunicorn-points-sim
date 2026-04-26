@@ -21,6 +21,14 @@ const contentType = (filePath: string) =>
 
 const routePath = (pathname: string) => decodeURIComponent(pathname.replace(/^\/+/, ""));
 
+const duckDbAssetPath = (pathname: string) => {
+  if (!pathname.startsWith("/vendor/duckdb/")) return undefined;
+  const assetName = path.basename(routePath(pathname));
+  const publicPath = path.join(root, "public", "vendor", "duckdb", assetName);
+  const packagePath = path.join(root, "node_modules", "@duckdb", "duckdb-wasm", "dist", assetName);
+  return { publicPath, packagePath };
+};
+
 const buildBrowserBundle = async () => {
   const startedAt = performance.now();
   const result = await Bun.build({
@@ -124,6 +132,13 @@ const server = Bun.serve({
       return new Response(injectReload(html), {
         headers: { "Content-Type": "text/html; charset=utf-8" }
       });
+    }
+
+    const duckDbAsset = duckDbAssetPath(url.pathname);
+    if (duckDbAsset) {
+      return serveFile(
+        (await Bun.file(duckDbAsset.publicPath).exists()) ? duckDbAsset.publicPath : duckDbAsset.packagePath
+      );
     }
 
     const baseDir = isProduction ? path.join(root, "dist") : root;
