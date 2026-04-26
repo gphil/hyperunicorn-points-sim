@@ -1,0 +1,17 @@
+node_modules/
+dist/
+public/vendor/duckdb/
+
+.DS_Store
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+.env
+.env.*
+
+coverage/
+.nyc_output/
+
+*.tsbuildinfo

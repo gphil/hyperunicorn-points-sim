@@ -1,0 +1,27 @@
+{
+  "name": "hyperunicorn-points-sim",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun --watch src/server.ts",
+    "build": "bun run scripts/build.ts",
+    "check": "tsc --noEmit",
+    "start": "NODE_ENV=production bun src/server.ts",
+    "postinstall": "bun run scripts/copy-duckdb-assets.ts"
+  },
+  "dependencies": {
+    "@duckdb/duckdb-wasm": "^1.33.1-dev45.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "vega": "^6.2.0",
+    "vega-embed": "^7.1.0",
+    "vega-lite": "^6.4.2"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "bun-types": "^1.3.12",
+    "typescript": "^6.0.3"
+  }
+}
