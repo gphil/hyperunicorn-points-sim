@@ -47,7 +47,7 @@ Production mode serves the built `dist` output:
 ```sh
 bun run build
 bun run start
-    ```
+```
 
 ## Points Formula & Rationale
 
